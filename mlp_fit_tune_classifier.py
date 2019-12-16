@@ -19,7 +19,7 @@ parameters = {
     'vect__ngram_range': [(1, 1), ],
     'tfidf__use_idf': (True, False),
     'clf__random_state': (0, 1, 42, 160, ),
-    'clf__alpha': (1e-2, 1e-3, 1e-4, 0.1, 1e-5, ),
+    'clf__alpha': (1e-2, 1e-3, 0.1 ),
     'clf__hidden_layer_sizes': [(1, ), (3, ), (len_n, )],
     #'clf__activation': ['tanh', 'relu'],
     #'clf__solver': ['sgd', 'adam'],
