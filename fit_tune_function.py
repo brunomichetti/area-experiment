@@ -19,3 +19,4 @@ def fit_tune_store_sgdcv(sgd_clf, clf_type):
         pickle.dump(sgd_clf.best_estimator_['tfidf'], file)
 
     print(f'{clf_type.upper()} fitted and tuned successfully!')
+    print(sgd_clf.best_params_)

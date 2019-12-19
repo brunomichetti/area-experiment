@@ -15,7 +15,7 @@ len_n = tf_transformer.shape[1]
 text_clf = Pipeline([
     ('vect', CountVectorizer()),
     ('tfidf', TfidfTransformer()),
-    ('clf', MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(15,), random_state=1)),
+    ('clf', MLPClassifier()),
 ])
 
 parameters = {
@@ -23,10 +23,11 @@ parameters = {
     'tfidf__use_idf': (True, False),
     'clf__random_state': (0, ),
     'clf__alpha': (1e-2, 1e-3, 1e-4, 0.1, 1e-5, ),
-    'clf__hidden_layer_sizes': [(len_n, ), (len_n, int(len_n/2)), ],
+    'clf__hidden_layer_sizes': [(int(len_n/2), ), (int((len_n + 4)*(2/3)), ), (int(len_n/2), int(len_n/4))],
     'clf__activation': ['identity', 'logistic', 'tanh', 'relu'],
-    'clf__solver': ['sgd', 'adam'],
+    'clf__solver': ['sgd', 'adam', 'lbfgs'],
     'clf__learning_rate': ['constant', 'adaptive'],
+    'clf__validation_fraction': [0.1, 0.3, 0.5, 0.01]
 }
 
 mlp_clf_gscv = GridSearchCV(text_clf, parameters, cv=5, iid=False, n_jobs=-1)
