@@ -1,11 +1,14 @@
+import pickle
+
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import GridSearchCV
 
-from train_and_test_definition import X_train
 from fit_tune_function import fit_tune_store_sgdcv
+
+X_train = pickle.load(open('data_process/data_sets/x_train.pkl', 'rb'))
 
 count_vect = CountVectorizer()
 X_train_counts = count_vect.fit_transform(X_train)
@@ -19,7 +22,7 @@ text_clf = Pipeline([
 ])
 
 parameters = {
-    'vect__ngram_range': [(1, 1), ],
+    'vect__ngram_range': [(1, 1), (1, 2), (1, 3), (1, 4), ],
     'tfidf__use_idf': (True, False),
     'clf__random_state': (0, ),
     'clf__alpha': (1e-2, 1e-3, 1e-4, 0.1, 1e-5, ),

@@ -14,7 +14,7 @@ clf_pipeline = Pipeline([
 ])
 
 parameters = {
-    'vect__ngram_range': [(1, 1), (1, 2), (2, 3), (3, 4), ],
+    'vect__ngram_range': [(1, 1), (1, 2), (1, 3), (1, 4), ],
     'tfidf__use_idf': (True, False),
     'clf__random_state': (0, ),
     'clf__alpha': (1e-2, 1e-3, 1e-4, 0.1, 1e-6, ),

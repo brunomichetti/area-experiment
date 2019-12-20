@@ -2,8 +2,6 @@ import pickle
 from sklearn import metrics
 
 from data_process.sentence_normalizer import normalize_sentence
-from data_process.data_sets.values_and_labels_dicts import area_value_label_dict, area_label_value_dict
-from train_and_test_definition import X_train, y_train, X_test, y_test
 
 
 def load_instances(clf_type):
@@ -14,10 +12,13 @@ def load_instances(clf_type):
 
 
 def test_classifier(clf, test_predict):
-    print(metrics.classification_report(y_test, test_predict, target_names=list(area_label_value_dict.keys())))
+    y_test = pickle.load(open('data_process/data_sets/y_test.pkl', 'rb'))
+    positions_categories = pickle.load(open('data_process/data_sets/positions_categories.pkl', 'rb'))
+    print(metrics.classification_report(y_test, test_predict, target_names=positions_categories.categories))
 
 
 def test_with_examples(clf_type, clf, count_vect, tfidf_transformer):
+    positions_categories = pickle.load(open('data_process/data_sets/positions_categories.pkl', 'rb'))
     # Classify new examples
     with open('test_data/example_titles.csv') as f:
         lines = f.readlines()
@@ -32,7 +33,6 @@ def test_with_examples(clf_type, clf, count_vect, tfidf_transformer):
         for job_pos, classified_job in zip(lines_without_n, y_result):
             file.write(job_pos)
             file.write("\t")
-            file.write(area_value_label_dict[classified_job])
+            file.write(positions_categories.categories[classified_job])
             file.write("\n")
         file.close()
-
