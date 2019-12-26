@@ -1,4 +1,4 @@
-from train_and_test_definition import X_test
+import pickle
 from test_functions import load_instances, test_classifier, test_with_examples
 
 
